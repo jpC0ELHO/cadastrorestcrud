@@ -1,13 +1,26 @@
 package com.crudpessoas.cadastro.domain.entities;
 
 import com.crudpessoas.cadastro.domain.entities.enums.Estado;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+@Table(name = "tb_endereco")
+@EntityListeners(AuditingEntityListener.class)
+@Data
+@AllArgsConstructor
+@Entity
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Endereco {
-
     @Column(nullable = false, unique = false, length = 100)
     private String logradouro;
     @Column(nullable = false, unique = false, length = 10)
