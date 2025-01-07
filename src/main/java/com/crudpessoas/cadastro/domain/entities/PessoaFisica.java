@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,9 +24,12 @@ import java.util.Set;
 @EntityListeners(AuditingEntityListener.class)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class PessoaFisica extends Entidade{
-
+    @CPF
     @Column(nullable = false, unique = true, length = 15)
     private String cpf;
+
+    @Column(nullable = false,unique = true,length = 10)
+    private String rd;
 
     @Column(nullable = false, unique = false, length = 255)
     private String primeiroNome;
