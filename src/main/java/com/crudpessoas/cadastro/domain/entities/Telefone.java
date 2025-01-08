@@ -22,5 +22,5 @@ public class Telefone {
 
     @Enumerated
     @Column(name = "tipo_telefone")
-    private TelefoneTipo telefoneType;
+    private TelefoneTipo telefoneTipo;
 }
