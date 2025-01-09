@@ -29,7 +29,7 @@ public class PessoaFisica extends Entidade{
     private String cpf;
 
     @Column(nullable = false,unique = true,length = 10)
-    private String rd;
+    private String rg;
 
     @Column(nullable = false, unique = false, length = 255)
     private String primeiroNome;
