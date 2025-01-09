@@ -35,7 +35,7 @@ public class PessoaFisica extends Entidade{
     private String primeiroNome;
 
     @Column(nullable = false, unique = false, length = 255)
-    private String sobreNome;
+    private String sobrenome;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = false, length = 20)
@@ -48,7 +48,7 @@ public class PessoaFisica extends Entidade{
     private Set<String> emails;
 
     @Column(nullable = false)
-    @JoinColumn(name = "aluno_cpf", referencedColumnName = "cpf")
+    @JoinColumn(name = "pessoafisica_cpf", referencedColumnName = "cpf")
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private Set<Telefone> telefones;
 
