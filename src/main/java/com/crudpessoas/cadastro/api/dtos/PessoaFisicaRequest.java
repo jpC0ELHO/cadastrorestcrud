@@ -1,10 +1,12 @@
 package com.crudpessoas.cadastro.api.dtos;
 
+import com.crudpessoas.cadastro.domain.entities.Endereco;
 import com.crudpessoas.cadastro.domain.entities.PessoaFisica;
 import com.crudpessoas.cadastro.domain.entities.Telefone;
 import com.crudpessoas.cadastro.domain.entities.enums.Sexo;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import jakarta.persistence.Embedded;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -30,21 +32,25 @@ public record PessoaFisicaRequest (
         @NotNull
         Set<Telefone> telefones,
         @NotNull
-        LocalDate dataNascimento
+        LocalDate dataNascimento,
+        @Embedded
+        @NotNull
+        Endereco endereco
 ){
-    public static PessoaFisicaRequest toEntidade(PessoaFisica pessoaFisica){
-            if (pessoaFisica==null){
+    public static PessoaFisica toEntidade(PessoaFisicaRequest pessoaFisicaRequest){
+            if (pessoaFisicaRequest==null){
                     return null;
             }
-            return new PessoaFisicaRequest(
-                    pessoaFisica.getCpf(),
-                    pessoaFisica.getRg(),
-                    pessoaFisica.getPrimeiroNome(),
-                    pessoaFisica.getSobrenome(),
-                    pessoaFisica.getSexo(),
-                    pessoaFisica.getEmails(),
-                    pessoaFisica.getTelefones(),
-                    pessoaFisica.getDataNascimento()
+            return new PessoaFisica(
+                    pessoaFisicaRequest.cpf(),
+                    pessoaFisicaRequest.rg(),
+                    pessoaFisicaRequest.primeiroNome(),
+                    pessoaFisicaRequest.sobrenome(),
+                    pessoaFisicaRequest.sexo(),
+                    pessoaFisicaRequest.emails(),
+                    pessoaFisicaRequest.telefones(),
+                    pessoaFisicaRequest.dataNascimento(),
+                    pessoaFisicaRequest.endereco()
             );
     }
 }
