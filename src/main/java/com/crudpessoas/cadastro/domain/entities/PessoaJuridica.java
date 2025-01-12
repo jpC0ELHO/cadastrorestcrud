@@ -34,6 +34,7 @@ public class PessoaJuridica extends Entidade{
     @JoinColumn(name = "entidade_cnpj_telefones",referencedColumnName = "telefones")
     @Column(nullable = false)
     private Set<Telefone>telefone;
+    @Column(name = "atividade")
     private String status;
     @Embedded
     private Endereco endereco;
