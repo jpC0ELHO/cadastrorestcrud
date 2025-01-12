@@ -24,12 +24,17 @@ public class PessoaJuridica extends Entidade{
     private String cnpj;
     @Column(length = 15,unique = true)
     private String razaoSocial;
+    @Column(name = "nome_fantasia",length = 15,unique = true)
+    private String nomeFantasia;
+    @Column(length = 30,unique = true)
+    private String responsavel;
     @Column(length = 100,unique = true)
     private Set<String> email;
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.LAZY)
     @JoinColumn(name = "entidade_cnpj_telefones",referencedColumnName = "telefones")
     @Column(nullable = false)
     private Set<Telefone>telefone;
+    private String status;
     @Embedded
     private Endereco endereco;
 }
