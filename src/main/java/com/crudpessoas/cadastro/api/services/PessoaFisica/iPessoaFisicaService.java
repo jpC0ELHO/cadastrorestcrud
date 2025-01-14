@@ -2,6 +2,7 @@ package com.crudpessoas.cadastro.api.services.PessoaFisica;
 
 import com.crudpessoas.cadastro.api.dtos.PessoaFisicaRequest;
 import com.crudpessoas.cadastro.api.dtos.PessoaFisicaResponse;
+import com.crudpessoas.cadastro.domain.exceptions.ModelIntegrityViolationException;
 import com.crudpessoas.cadastro.domain.exceptions.PessoaFisicaNotFoundException;
 import com.crudpessoas.cadastro.domain.repositories.PessoaFisicaRepository;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -55,6 +56,7 @@ public class iPessoaFisicaService implements PessoaFisicaService{
             var findCpf=pessoaFisicaRepository.findPessoaByCpf(pessoaFisicaRequest.cpf());
             if (findCpf.isPresent()){
                 log.info("CPF: {} already exists!",pessoaFisicaRequest.cpf());
+                throw new ModelIntegrityViolationException("CPF already exists!");
             }
             pessoaFisicaRepository.save(toEntidade(pessoaFisicaRequest));
     }
