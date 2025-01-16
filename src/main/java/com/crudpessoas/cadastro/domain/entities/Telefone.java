@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Telefone {
+public class Telefone extends Entidade {
     @Column(name = "numero",unique = true,length = 18)
     private String number;
 
