@@ -3,7 +3,6 @@ package com.crudpessoas.cadastro.api.controllers;
 import com.crudpessoas.cadastro.api.dtos.EnderecoRequest;
 import com.crudpessoas.cadastro.api.dtos.EnderecoResponse;
 import com.crudpessoas.cadastro.api.services.Endereco.EnderecoService;
-import com.crudpessoas.cadastro.domain.entities.Endereco;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @AllArgsConstructor
