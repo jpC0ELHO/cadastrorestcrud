@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Cadastros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-section, .search-section, .table-section {
+            margin-bottom: 30px;
+        }
+        .form-section input, .search-section input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .form-section button, .table-section button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerenciamento de Cadastros</h1>
+    <div class="container">
+        <!-- Seção de Pesquisa -->
+        <div class="search-section">
+            <h2>Pesquisar Cadastro</h2>
+            <input type="text" id="searchInput" placeholder="Digite o nome para pesquisar...">
+        </div>
+        
+        <!-- Seção de Tabela -->
+        <div class="table-section">
+            <h2>Lista de Cadastros</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Documento</th>
+                        <th>Contato</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="cadastroTable">
+                    <!-- Linhas dinâmicas serão adicionadas aqui -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulário para Adicionar -->
+        <div class="form-section">
+            <h2>Adicionar Novo Cadastro</h2>
+            <input type="text" id="nomeInput" placeholder="Nome">
+            <input type="text" id="documentoInput" placeholder="Documento">
+            <input type="text" id="contatoInput" placeholder="Contato">
+            <button onclick="adicionarCadastro()">Adicionar</button>
+        </div>
+    </div>
+
+    <script>
+        const cadastros = [];
+
+        // Adicionar novo cadastro
+        function adicionarCadastro() {
+            const nome = document.getElementById('nomeInput').value;
+            const documento = document.getElementById('documentoInput').value;
+            const contato = document.getElementById('contatoInput').value;
+
+            if (!nome || !documento || !contato) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            cadastros.push({ nome, documento, contato });
+            document.getElementById('nomeInput').value = '';
+            document.getElementById('documentoInput').value = '';
+            document.getElementById('contatoInput').value = '';
+
+            atualizarTabela();
+        }
+
+        // Atualizar tabela
+        function atualizarTabela() {
+            const tabela = document.getElementById('cadastroTable');
+            tabela.innerHTML = '';
+
+            cadastros.forEach((cadastro, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${cadastro.nome}</td>
+                    <td>${cadastro.documento}</td>
+                    <td>${cadastro.contato}</td>
+                    <td class="action-buttons">
+                        <button onclick="editarCadastro(${index})">Editar</button>
+                        <button onclick="removerCadastro(${index})">Remover</button>
+                    </td>
+                `;
+                tabela.appendChild(row);
+            });
+        }
+
+        // Remover cadastro
+        function removerCadastro(index) {
+            cadastros.splice(index, 1);
+            atualizarTabela();
+        }
+
+        // Editar cadastro
+        function editarCadastro(index) {
+            const novoNome = prompt('Novo nome:', cadastros[index].nome);
+            const novoDocumento = prompt('Novo documento:', cadastros[index].documento);
+            const novoContato = prompt('Novo contato:', cadastros[index].contato);
+
+            if (novoNome && novoDocumento && novoContato) {
+                cadastros[index] = { nome: novoNome, documento: novoDocumento, contato: novoContato };
+                atualizarTabela();
+            }
+        }
+
+        // Filtrar cadastros
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const termo = this.value.toLowerCase();
+            const tabela = document.getElementById('cadastroTable');
+            tabela.innerHTML = '';
+
+            cadastros
+                .filter(cadastro => cadastro.nome.toLowerCase().includes(termo))
+                .forEach((cadastro, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${cadastro.nome}</td>
+                        <td>${cadastro.documento}</td>
+                        <td>${cadastro.contato}</td>
+                        <td class="action-buttons">
+                            <button onclick="editarCadastro(${index})">Editar</button>
+                            <button onclick="removerCadastro(${index})">Remover</button>
+                        </td>
+                    `;
+                    tabela.appendChild(row);
+                });
+        });
+    </script>
+</body>
+</html>
