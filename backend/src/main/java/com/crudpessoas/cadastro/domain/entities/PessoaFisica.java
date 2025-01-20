@@ -31,10 +31,10 @@ public class PessoaFisica extends Entidade{
     @Column(nullable = false,unique = true,length = 10)
     private String rg;
 
-    @Column(nullable = false, unique = false, length = 255)
+    @Column(nullable = false)
     private String primeiroNome;
 
-    @Column(nullable = false, unique = false, length = 255)
+    @Column(nullable = false)
     private String sobrenome;
 
     @Enumerated(EnumType.STRING)
