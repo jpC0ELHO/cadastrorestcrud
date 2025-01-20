@@ -97,6 +97,9 @@
         // Adicionar novo cadastro
         function adicionarCadastro() {
             const nome = document.getElementById('nomeInput').value;
+            const sobrenome = document.getElementById('sobrenomeInput').value = '';
+            const email = document.getElementById('emailInput').value;
+            const endereco = document.getElementById('enderecoInput').value;
             const documento = document.getElementById('documentoInput').value;
             const contato = document.getElementById('contatoInput').value;
 
@@ -105,8 +108,11 @@
                 return;
             }
 
-            cadastros.push({ nome, documento, contato });
+            cadastros.push({ nome, sobrenome,email,endereco,documento, contato });
             document.getElementById('nomeInput').value = '';
+            document.getElementById('sobrenomeInput').value = '';
+            document.getElementById('emailInput').value = '';
+            document.getElementById('enderecoInput').value = '';
             document.getElementById('documentoInput').value = '';
             document.getElementById('contatoInput').value = '';
 
