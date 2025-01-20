@@ -128,6 +128,9 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${cadastro.nome}</td>
+                    <td>${cadastro.sobrenome}</td>
+                    <td>${cadastro.email}</td>
+                    <td>${cadastro.endereco}</td>
                     <td>${cadastro.documento}</td>
                     <td>${cadastro.contato}</td>
                     <td class="action-buttons">
@@ -148,11 +151,15 @@
         // Editar cadastro
         function editarCadastro(index) {
             const novoNome = prompt('Novo nome:', cadastros[index].nome);
+            const novoSobrenome=prompt('Novo sobrenome',cadastros[index].sobrenome);
+            const novoEmail=prompt('Novo e-amil',cadastros[index].email);
+            const novoEndereco=prompt('Novo endereco',cadastros[index].endereco);
             const novoDocumento = prompt('Novo documento:', cadastros[index].documento);
             const novoContato = prompt('Novo contato:', cadastros[index].contato);
 
-            if (novoNome && novoDocumento && novoContato) {
-                cadastros[index] = { nome: novoNome, documento: novoDocumento, contato: novoContato };
+            if (novoNome && novoSobrenome && novoEmail && novoEndereco &&  novoDocumento && novoContato) {
+                cadastros[index] = { nome: novoNome,sobrenome: novoSobrenome,
+                    email:novoEmail,endereco: novoEndereco, documento: novoDocumento, contato: novoContato };
                 atualizarTabela();
             }
         }
@@ -168,9 +175,12 @@
                 .forEach((cadastro, index) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${cadastro.nome}</td>
-                        <td>${cadastro.documento}</td>
-                        <td>${cadastro.contato}</td>
+                    <td>${cadastro.nome}</td>
+                    <td>${cadastro.sobrenome}</td>
+                    <td>${cadastro.email}</td>
+                    <td>${cadastro.endereco}</td>
+                    <td>${cadastro.documento}</td>
+                    <td>${cadastro.contato}</td>
                         <td class="action-buttons">
                             <button onclick="editarCadastro(${index})">Editar</button>
                             <button onclick="removerCadastro(${index})">Remover</button>
