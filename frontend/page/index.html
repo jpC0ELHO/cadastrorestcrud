@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento de Cadastros</title>
+    <title>Pessoa Fisica</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,7 +47,8 @@
     </style>
 </head>
 <body>
-    <h1>Gerenciamento de Cadastros</h1>
+    <h1>Cadastros Pessoa Fisica</h1>
+    
     <div class="container">
         <!-- Seção de Pesquisa -->
         <div class="search-section">
@@ -62,7 +63,11 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
+                        <th>Sobrenome</th>
+                        <th>Email</th>
+                        <th>Endereco</th>
                         <th>Documento</th>
+                        <th>Data de Nascimento</th>
                         <th>Contato</th>
                         <th>Ações</th>
                     </tr>
@@ -77,6 +82,9 @@
         <div class="form-section">
             <h2>Adicionar Novo Cadastro</h2>
             <input type="text" id="nomeInput" placeholder="Nome">
+            <input type="text" id="sobrenomeInput" placeholder="Sobrenome">
+            <input type="text" id="emailInput" placeholder="Email">
+            <input type="text" id="enderecoInput" placeholder="Endereco">
             <input type="text" id="documentoInput" placeholder="Documento">
             <input type="text" id="contatoInput" placeholder="Contato">
             <button onclick="adicionarCadastro()">Adicionar</button>
