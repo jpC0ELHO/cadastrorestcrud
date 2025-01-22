@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pessoa Fisica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-section, .search-section, .table-section {
+            margin-bottom: 30px;
+        }
+        .form-section input, .search-section input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .form-section button, .table-section button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+        }
+        .table-section {
+                overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cadastros Pessoa Fisica</h1>
+    
+    <div class="container">
+        <!-- Seção de Pesquisa -->
+        <div class="search-section">
+            <h2>Pesquisar Cadastro</h2>
+            <input type="text" id="searchInput" placeholder="Digite o nome para pesquisar...">
+        </div>
+        
+        <!-- Seção de Tabela -->
+        <div class="table-section">
+            <h2>Lista de Cadastros</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>CPF</th>
+                        <th>RG</th>
+                        <th>Primeiro Nome</th>
+                        <th>Sobrenome</th>
+                        <th>Sexo</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Endereco</th>
+                        <th>Data de Nascimento</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="cadastroTable">
+                    <!-- Linhas dinâmicas serão adicionadas aqui -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Formulário para Adicionar -->
+        <div class="form-section">
+            <h2>Adicionar Novo Cadastro</h2>
+            <input type="text" id="cpfInput" placeholder="CPF">
+            <input type="text" id="rgInput" placeholder="RG">
+            <input type="text" id="primeiroNomeInput" placeholder="Primeiro Nome">
+            <input type="text" id="sobrenomeInput" placeholder="Sobrenome">
+            <input type="text" id="sexoInput" placeholder="Sexo">
+            <input type="text" id="emailInput" placeholder="E-mail">
+            <input type="text" id="telefoneInput" placeholder="Telefone">
+            <input type="text" id="enderecoInput" placeholder="Endereco">
+            <input type="text" id="dataNascimentoInput" placeholder="Data de Nascimento">
+            <button onclick="adicionarCadastro()">Adicionar</button>
+        </div>
+    </div>
+
+    <script>
+        const cadastros = [];
+
+        // Adicionar novo cadastro
+        function adicionarCadastro() {
+            const cpf = document.getElementById('cpfInput').value;
+            const rg = document.getElementById('rgInput').value;
+            const sobrenome = document.getElementById('sobrenomeInput').value;
+            const email = document.getElementById('emailInput').value;
+            const endereco = document.getElementById('enderecoInput').value;
+            const documento = document.getElementById('documentoInput').value;
+            const contato = document.getElementById('contatoInput').value;
+
+            if (!nome || !documento || !contato) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            cadastros.push({ nome, sobrenome,email,endereco,documento, contato });
+            document.getElementById('nomeInput').value = '';
+            document.getElementById('sobrenomeInput').value = '';
+            document.getElementById('emailInput').value = '';
+            document.getElementById('enderecoInput').value = '';
+            document.getElementById('documentoInput').value = '';
+            document.getElementById('contatoInput').value = '';
+
+            if (!nome || !sobrenome || !email || !endereco || !documento || !contato) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }           
+
+            atualizarTabela();
+        }
+
+        // Atualizar tabela
+        function atualizarTabela() {
+            const tabela = document.getElementById('cadastroTable');
+            tabela.innerHTML = '';
+
+            cadastros.forEach((cadastro, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${cadastro.nome}</td>
+                    <td>${cadastro.sobrenome}</td>
+                    <td>${cadastro.email}</td>
+                    <td>${cadastro.endereco}</td>
+                    <td>${cadastro.documento}</td>
+                    <td>${cadastro.contato}</td>
+                    <td class="action-buttons">
+                        <button onclick="editarCadastro(${index})">Editar</button>
+                        <button onclick="removerCadastro(${index})">Remover</button>
+                    </td>
+                `;
+                tabela.appendChild(row);
+            });
+        }
+
+        // Remover cadastro
+        function removerCadastro(index) {
+            cadastros.splice(index, 1);
+            atualizarTabela();
+        }
+
+        // Editar cadastro
+        function editarCadastro(index) {
+            const novoNome = prompt('Novo nome:', cadastros[index].nome);
+            const novoSobrenome=prompt('Novo sobrenome',cadastros[index].sobrenome);
+            const novoEmail=prompt('Novo e-amil',cadastros[index].email);
+            const novoEndereco=prompt('Novo endereco',cadastros[index].endereco);
+            const novoDocumento = prompt('Novo documento:', cadastros[index].documento);
+            const novoContato = prompt('Novo contato:', cadastros[index].contato);
+
+            if (novoNome && novoSobrenome && novoEmail && novoEndereco &&  novoDocumento && novoContato) {
+                cadastros[index] = { nome: novoNome,sobrenome: novoSobrenome,
+                    email:novoEmail,endereco: novoEndereco, documento: novoDocumento, contato: novoContato };
+                atualizarTabela();
+            }
+        }
+
+        // Filtrar cadastros
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const termo = this.value.toLowerCase();
+            const tabela = document.getElementById('cadastroTable');
+            tabela.innerHTML = '';
+
+            cadastros
+                .filter(cadastro => cadastro.nome.toLowerCase().includes(termo))
+                .forEach((cadastro, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                    <td>${cadastro.nome}</td>
+                    <td>${cadastro.sobrenome}</td>
+                    <td>${cadastro.email}</td>
+                    <td>${cadastro.endereco}</td>
+                    <td>${cadastro.documento}</td>
+                    <td>${cadastro.contato}</td>
+                        <td class="action-buttons">
+                            <button onclick="editarCadastro(${index})">Editar</button>
+                            <button onclick="removerCadastro(${index})">Remover</button>
+                        </td>
+                    `;
+                    tabela.appendChild(row);
+                });
+        });
+    </script>
+</body>
+</html>
