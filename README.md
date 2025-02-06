@@ -1,0 +1,1 @@
+- Devido erro o projeto foi descartado, foi criado outro a cima com erros corrigidos https://github.com/jpC0ELHO/peopleRegister
